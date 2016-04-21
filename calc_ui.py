@@ -2,13 +2,13 @@
 # _*_ coding:utf-8 _*_
 
 import sys
+
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
-DEBUG = True
-
 class CalcUI(QMainWindow):
 
+    DEBUG = False
     bufCal = ""
     bufNum = 0
 
@@ -24,7 +24,8 @@ class CalcUI(QMainWindow):
         text1 = self.label.text()
         btnText = btn.text()
 
-        print text + ":" + btnText + ":" + text1 + ":" + self.bufCal
+        if self.DEBUG:
+            print text + ":" + btnText + ":" + text1 + ":" + self.bufCal
 
         if btnText == "C":
             text = text[:-1]
@@ -36,11 +37,11 @@ class CalcUI(QMainWindow):
             return
 
         if btnText == "=":
-            if DEBUG:
+            if self.DEBUG:
                 print "1"
             btnText = self.bufCal
         else: 
-            if DEBUG:
+            if self.DEBUG:
                 print "2"
             tmp = self.bufCal
             self.bufCal = btnText
@@ -48,25 +49,26 @@ class CalcUI(QMainWindow):
 
 
         if self.label.text() == "":
-            if DEBUG:
+            if self.DEBUG:
                 print "3"
             self.label.setText(text)
             self.textbox.clear()
             return
         
         if text == "":
-            if DEBUG:
+            if self.DEBUG:
                 print "4"
             return
 
-        if DEBUG:
+        if self.DEBUG:
             print "5"
 
         tmp1 = int(self.label.text())
         tmp2 = int(text)
 
         
-        print text + ":" + btnText + ":" + text1
+        if self.DEBUG:
+            print text + ":" + btnText + ":" + text1
 
         if btnText == "+":
             self.bufNum = tmp1 + tmp2
@@ -79,21 +81,23 @@ class CalcUI(QMainWindow):
         else:
             pass
 
-        print "sum:" + str(self.bufNum)
+        if self.DEBUG:
+            print "sum:" + str(self.bufNum)
 
         if btn.text() == "=":
-            if DEBUG:
+            if self.DEBUG:
                 print "6"
             self.textbox.setText(str(self.bufNum))
             self.label.setText("")
             self.bufCal = ""
         else:
-            if DEBUG:
+            if self.DEBUG:
                 print "7"
             self.textbox.clear()
             self.label.setText(str(self.bufNum))
 
-        print self.bufCal + ":" + btnText
+        if self.DEBUG:
+            print self.bufCal + ":" + btnText
 
 
     def btn_Clicked(self):
@@ -103,7 +107,7 @@ class CalcUI(QMainWindow):
 
         self.textbox.setText(text + btn.text())
         
-        if DEBUG:
+        if self.DEBUG:
             print self.bufCal
 
 
